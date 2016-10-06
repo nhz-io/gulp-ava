@@ -8,7 +8,16 @@ var resolveCwd = require('resolve-cwd');
 var BIN = require.resolve('ava/cli.js');
 
 module.exports = function (opts) {
-	opts = opts || {};
+	var options = {};
+
+	opts = Object.keys(opts || {}).reduce((o, k) => {
+		if (k === 'env') {
+			options.env = opts[k];
+		} else {
+			o[k] = opts[k];
+		}
+		return o;
+	}, {});
 
 	var files = [];
 
@@ -39,7 +48,7 @@ module.exports = function (opts) {
 			}
 		}
 
-		childProcess.execFile(process.execPath, args, function (err, stdout, stderr) {
+		childProcess.execFile(process.execPath, args, options, function (err, stdout, stderr) {
 			if (err) {
 				this.emit('error', new gutil.PluginError('gulp-ava', stderr || stdout || err));
 				cb();
