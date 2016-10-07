@@ -33,7 +33,7 @@
     "jasmine"
   ],
   "dependencies": {
-    "ava": "^0.16.0",
+    "ava": "git+https://github.com/nhz-io/ava#config-babel-register",
     "dargs": "^4.1.0",
     "gulp-util": "^3.0.6",
     "resolve-cwd": "^1.0.0",
